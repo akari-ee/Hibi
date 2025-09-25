@@ -11,9 +11,8 @@ import { NotePreview } from '../components/notes/NotePreview';
 import { About, Name, SocialMedia } from '../data/lifeApi';
 import { Note, notesApi } from '../lib/notesApi';
 
-const seoTitle = 'Bartosz Jarocki';
-const seoDescription =
-  'A passionate software engineer with an eye for details based in Wrocław, Poland.';
+const seoTitle = 'Hibi';
+const seoDescription = 'Just human being.';
 
 type Props = {
   latestNotes: Note[];
@@ -34,7 +33,7 @@ export default function Home({ latestNotes }: Props) {
           ],
         }}
       />
-      <Container className="mt-9">
+      {/** <Container className="mt-9">
         <div className="max-w-2xl">
           <PageTitle>{Name}</PageTitle>
           <p className="mt-6 max-w-2xl text-base text-balance">{About}</p>
@@ -51,16 +50,18 @@ export default function Home({ latestNotes }: Props) {
         </div>
       </Container>
       <Photos />
-      <Container className="mt-12">
-        <div className="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2">
-          <div className="flex flex-col gap-16">
+      */}
+      <Container className="">
+        <div className="mx-auto max-w-xl gap-y-20 lg:max-w-none">
+          <div className="flex flex-col gap-8">
             {latestNotes.map((blogPost) => (
               <NotePreview key={blogPost.slug} note={blogPost} dense />
             ))}
           </div>
-          <div className="lg:ml-auto space-y-10 lg:pl-16 xl:pl-24">
+          {/** <div className="lg:ml-auto space-y-10 lg:pl-16 xl:pl-24">
             <Resume />
           </div>
+          */}
         </div>
       </Container>
     </>
@@ -70,7 +71,7 @@ export default function Home({ latestNotes }: Props) {
 const NEWEST_POSTS_TO_DISPLAY = 5;
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const latestNotes = await notesApi.getNotes('desc', NEWEST_POSTS_TO_DISPLAY);
+  const latestNotes = await notesApi.getNotes('desc');
 
   return {
     props: { latestNotes },

@@ -124,7 +124,7 @@ export const Header = () => {
               ref={avatarRef}
               className="order-last mt-[calc(theme(spacing.16)-theme(spacing.3))]"
             />
-            <Container
+            {/** <Container
               className="top-0 order-last -mb-3 pt-3"
               style={{ position: 'var(--header-position)' } as unknown as React.CSSProperties}
             >
@@ -149,7 +149,7 @@ export const Header = () => {
                   />
                 </div>
               </div>
-            </Container>
+            </Container>*/}
           </>
         )}
         <div
@@ -163,15 +163,7 @@ export const Header = () => {
           >
             <div className="relative flex gap-4">
               <div className="flex flex-1">
-                {!isHomePage && (
-                  <AvatarContainer>
-                    <Avatar />
-                  </AvatarContainer>
-                )}
-              </div>
-              <div className="flex flex-1 justify-end md:justify-center">
-                <MobileNavigation className="pointer-events-auto md:hidden" />
-                <DesktopNavigation className="pointer-events-auto hidden md:block" />
+                <DesktopNavigation className="pointer-events-auto block" />
               </div>
               <div className="flex justify-end md:flex-1">
                 <div className="pointer-events-auto">

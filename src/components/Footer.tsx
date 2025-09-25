@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Container } from './Container';
 import { NavLink, NavigationItems } from './Navigation';
+import { SocialMedia } from 'src/data/lifeApi';
+import { SocialLink } from './SocialLink';
 
 export const Footer = () => {
   return (
@@ -20,6 +22,16 @@ export const Footer = () => {
               <p className="text-sm text-zinc-400 dark:text-zinc-500">
                 &copy; {new Date().getFullYear()} Bartosz Jarocki. All rights reserved.
               </p>
+            </div>
+            <div className="flex gap-2 mt-4 justify-end">
+              {SocialMedia.map((socialProfile) => (
+                <SocialLink
+                  key={socialProfile.name}
+                  aria-label={`Follow on ${socialProfile.name}`}
+                  href={socialProfile.link}
+                  icon={socialProfile.icon}
+                />
+              ))}
             </div>
           </Container.Inner>
         </div>

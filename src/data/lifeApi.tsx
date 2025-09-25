@@ -22,6 +22,7 @@ import Minimal from '../images/logos/minimal.svg';
 import FilmIoLogo from '../images/logos/filmio.jpg';
 import MotionLogo from '../images/logos/motion.svg';
 import { LinkedInIcon } from '../components/icons/LinkedInIcon';
+import { MailIcon } from 'src/components/icons/MailIcon';
 
 export const Name = 'Bartosz Jarocki';
 
@@ -187,10 +188,8 @@ export const MyPastProjects: Project[] = [
 ];
 
 export const SocialMedia = [
-  { name: 'Twitter', link: 'https://twitter.com/BartoszJarocki', icon: XIcon },
-  { name: 'Instagram', link: 'https://www.instagram.com/bartosz.jarocki/', icon: InstagramIcon },
-  { name: 'Github', link: 'https://github.com/BartoszJarocki', icon: GitHubIcon },
-  { name: 'LinkedIn', link: 'https://www.linkedin.com/in/bjarocki', icon: LinkedInIcon },
+  { name: 'Github', link: 'https://github.com/akari-ee', icon: GitHubIcon },
+  { name: 'Email', link: 'mailto:zentechie7@gmail.com', icon: MailIcon },
 ] as const;
 
 export const Work = [

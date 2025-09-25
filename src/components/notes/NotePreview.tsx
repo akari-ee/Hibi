@@ -21,29 +21,31 @@ const StaticBadge = ({ className, children }: React.PropsWithChildren<{ classNam
 interface Props {
   note: Note;
   dense?: boolean;
+  noneDescription?: boolean;
 }
 
-export const NotePreview = ({ note, dense }: Props) => {
+export const NotePreview = ({ note, dense, noneDescription }: Props) => {
   return (
     <motion.div
       initial={ANIMATION_FROM_PROPS}
       whileInView={ANIMATION_TO_PROPS}
       viewport={{ once: true }}
     >
-      <article className="md:grid md:grid-cols-4 md:items-baseline">
-        <Card className="md:col-span-3">
-          <Card.Title href={`/notes/${note.slug}`}>{note.title}</Card.Title>
-          <Card.Eyebrow
-            as="time"
-            dateTime={note.publishedAt}
-            className={clsx(!dense && 'md:hidden')}
-            decorate
-          >
-            {formatDate(note.publishedAt)}
-            {note.inProgress && <StaticBadge className="ml-4">Work in progress</StaticBadge>}
-          </Card.Eyebrow>
-          <Card.Description>{note.description}</Card.Description>
-          <Card.Cta>Read note</Card.Cta>
+      <article className="">
+        <Card className="">
+          <div className="w-full">
+            <div className="flex justify-between w-full">
+              <Card.Title href={`/notes/${note.slug}`}>{note.title}</Card.Title>
+              <Card.Eyebrow dateTime={note.publishedAt} className={clsx(!dense && 'md:hidden')}>
+                {formatDate(note.publishedAt)}
+                {note.inProgress && <StaticBadge className="ml-4">Work in progress</StaticBadge>}
+              </Card.Eyebrow>
+            </div>
+            <div className="flex justify-between">
+              {!noneDescription && <Card.Description>{note.description}</Card.Description>}
+              <Card.Cta />
+            </div>
+          </div>
         </Card>
         {!dense && (
           <Card.Eyebrow as="time" dateTime={note.publishedAt} className="mt-1 hidden md:block">

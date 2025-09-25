@@ -18,26 +18,6 @@ export const NavigationItems = [
     href: '/notes',
     type: 'internal',
   },
-  {
-    name: 'Creating',
-    href: '/creating',
-    type: 'internal',
-  },
-  {
-    name: 'Uses',
-    href: '/uses',
-    type: 'internal',
-  },
-  {
-    name: 'Resume',
-    href: 'https://cv.jarocki.me',
-    type: 'external',
-  },
-  {
-    name: 'About',
-    href: '/about',
-    type: 'internal',
-  },
 ] as const;
 
 export const NavLink = ({ href, children }: React.PropsWithChildren<{ href: string }>) => {
@@ -81,7 +61,7 @@ export const DesktopNavigation = (
 ) => {
   return (
     <nav {...props}>
-      <ul className="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
+      <ul className="flex rounded-full text-sm font-medium text-zinc-800 dark:text-zinc-200">
         {NavigationItems.map((item) => {
           if (item.type === 'internal') {
             return (

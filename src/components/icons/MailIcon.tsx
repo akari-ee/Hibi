@@ -1,22 +1,10 @@
 export function MailIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      {...props}
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" width="1em" height="1em" {...props}>
       <path
-        d="M2.75 7.75a3 3 0 0 1 3-3h12.5a3 3 0 0 1 3 3v8.5a3 3 0 0 1-3 3H5.75a3 3 0 0 1-3-3v-8.5Z"
-        className="fill-zinc-100 stroke-zinc-400 dark:fill-zinc-100/10 dark:stroke-zinc-500"
-      />
-      <path
-        d="m4 6 6.024 5.479a2.915 2.915 0 0 0 3.952 0L20 6"
-        className="stroke-zinc-400 dark:stroke-zinc-500"
-      />
+        fill="currentColor"
+        d="M23 9.608v8.142a3.25 3.25 0 0 1-3.066 3.245L19.75 21H6.25a3.25 3.25 0 0 1-3.245-3.066L3 17.75V9.608l9.652 5.056a.75.75 0 0 0 .696 0zM6.25 5h13.5a3.25 3.25 0 0 1 3.234 2.924L13 13.154l-9.984-5.23a3.25 3.25 0 0 1 3.048-2.919zm-.238 17a3.25 3.25 0 0 0 2.739 1.5h11.5c2.9 0 5.25-2.35 5.25-5.25v-7.5a3.25 3.25 0 0 0-1.5-2.74v10.24A3.75 3.75 0 0 1 20.25 22z"
+      ></path>
     </svg>
   );
 }
