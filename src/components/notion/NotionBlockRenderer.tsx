@@ -58,12 +58,16 @@ export const NotionBlockRenderer = ({ block }: Props) => {
     case 'bulleted_list_item':
     case 'numbered_list_item':
       return (
-        <li className="pl-0">
+        <li>
           <NotionText textItems={value.rich_text} />
-          {!!value.children &&
-            value.children.map((block: any) => (
-              <NotionBlockRenderer key={block.id} block={block} />
-            ))}
+          {value.children && (
+            <ul className="list-disc">
+              {/* 또는 ol */}
+              {value.children.map((block: any) => (
+                <NotionBlockRenderer key={block.id} block={block} />
+              ))}
+            </ul>
+          )}
         </li>
       );
     case 'to_do':
