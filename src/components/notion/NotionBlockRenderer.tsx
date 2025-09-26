@@ -138,6 +138,15 @@ export const NotionBlockRenderer = ({ block }: Props) => {
           {href}
         </a>
       );
+    case 'callout':
+      return (
+        <div key={id} className="flex items-start gap-2 rounded-md border p-3 my-4 bg-gray-50">
+          {value.icon && <span>{value.icon.type === 'emoji' ? value.icon.emoji : '💡'}</span>}
+          <div>
+            <NotionText textItems={value.rich_text} />
+          </div>
+        </div>
+      );
     default:
       return (
         <>❌ Unsupported block (${type === 'unsupported' ? 'unsupported by Notion API' : type})</>
