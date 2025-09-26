@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { GetStaticProps } from 'next';
 import { NextSeo } from 'next-seo';
 
@@ -5,14 +6,22 @@ import { NotePreview } from '../components/notes/NotePreview';
 import { Note, notesApi } from '../lib/notesApi';
 import { PageLayout } from 'src/components/PageLayout';
 
+type Props = {
+  notes: Note[];
+  tags: string[];
+};
+
 const seoTitle = 'Hibi';
 const seoDescription = 'Learning something.';
 
-type Props = {
-  notes: Note[];
-};
+export default function Home({ notes, tags }: Props) {
+  const [selectedTag, setSelectedTag] = useState<string | null>(null);
 
-export default function Home({ notes }: Props) {
+  // 태그 필터링
+  const filteredNotes = selectedTag
+    ? notes.filter((note) => note.tags.includes(selectedTag))
+    : notes;
+
   return (
     <>
       <NextSeo
@@ -27,54 +36,42 @@ export default function Home({ notes }: Props) {
           ],
         }}
       />
-      {/** <Container className="mt-9">
-        <div className="max-w-2xl">
-          <PageTitle>{Name}</PageTitle>
-          <p className="mt-6 max-w-2xl text-base text-balance">{About}</p>
-          <div className="mt-6 flex gap-6">
-            {SocialMedia.map((socialProfile) => (
-              <SocialLink
-                key={socialProfile.name}
-                aria-label={`Follow on ${socialProfile.name}`}
-                href={socialProfile.link}
-                icon={socialProfile.icon}
-              />
-            ))}
-          </div>
+      <PageLayout title="" intro="Just notes on learning." className="mt-16 px-4">
+        {/* 태그 탭 */}
+        <div className="flex gap-4 mb-8 flex-wrap justify-end">
+          <button
+            className={`${selectedTag === null ? 'text-primary font-medium' : 'hover:text-primary'}`}
+            onClick={() => setSelectedTag(null)}
+          >
+            All
+          </button>
+          {tags.map((tag) => (
+            <button
+              key={tag}
+              className={`${selectedTag === tag ? 'text-primary font-medium' : 'hover:text-primary'}`}
+              onClick={() => setSelectedTag(tag)}
+            >
+              {tag}
+            </button>
+          ))}
         </div>
-      </Container>
-      <Photos />
-      */}
-      <PageLayout title="" intro="Just notes on learning" className="mt-16 px-4">
-        <div>
-          <div className="flex flex-col gap-8">
-            {notes.map((blogPost) => (
-              <NotePreview key={blogPost.slug} note={blogPost} dense />
-            ))}
-          </div>
+        {/* 노트 리스트 */}
+        <div className="flex flex-col gap-8">
+          {filteredNotes.map((note) => (
+            <NotePreview key={note.slug} note={note} dense />
+          ))}
         </div>
       </PageLayout>
-      {/* <Container className="">
-        <div className="mx-auto max-w-xl gap-y-20 lg:max-w-none">
-          <div className="flex flex-col gap-8">
-            {latestNotes.map((blogPost) => (
-              <NotePreview key={blogPost.slug} note={blogPost} dense />
-            ))}
-          </div>
-          <div className="lg:ml-auto space-y-10 lg:pl-16 xl:pl-24">
-            <Resume />
-          </div>
-        </div>
-      </Container> */}
     </>
   );
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   const notes = await notesApi.getNotes('desc');
+  const tags = Array.from(new Set(notes.map((post) => post.tags).flat()));
 
   return {
-    props: { notes, tags: Array.from(new Set(notes.map((post) => post.tags).flat())) },
+    props: { notes, tags },
     revalidate: 10,
   };
 };
