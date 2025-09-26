@@ -158,10 +158,10 @@ export const Header = () => {
           style={{ position: 'var(--header-position)' } as unknown as React.CSSProperties}
         >
           <Container
-            className="top-[var(--header-top,theme(spacing.6))] w-full"
+            className="top-[var(--header-top,theme(spacing.0))] w-full"
             style={{ position: 'var(--header-inner-position)' } as unknown as React.CSSProperties}
           >
-            <div className="relative flex gap-4">
+            <div className="relative flex gap-4 bg-white dark:bg-zinc-900">
               <div className="flex flex-1">
                 <DesktopNavigation className="pointer-events-auto block" />
               </div>
