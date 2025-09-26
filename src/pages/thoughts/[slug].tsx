@@ -5,19 +5,19 @@ import { useEffect } from 'react';
 
 import { NoteLayout } from '../../components/notes/NoteLayout';
 import { NotionBlockRenderer } from '../../components/notion/NotionBlockRenderer';
-import { Note as NoteType, notesApi } from '../../lib/notesApi';
+import { Note as NoteType, personalApi } from '../../lib/notesApi';
 
 type Props = {
   note: NoteType;
   noteContent: any[];
 };
 
-export default function Note({
+export default function Thoughts({
   note: { title, description, createdAt, slug },
   noteContent,
   previousPathname,
 }: Props & { previousPathname: string }) {
-  const url = `${process.env.NEXT_PUBLIC_URL}/notes/${slug}`;
+  const url = `${process.env.NEXT_PUBLIC_URL}/thoughts/${slug}`;
   const openGraphImageUrl = `${process.env.NEXT_PUBLIC_URL}/api/og?title=${title}&description=${description}`;
 
   useEffect(() => {
@@ -58,7 +58,7 @@ export default function Note({
 
 export const getStaticProps: GetStaticProps<Props, { slug: string }> = async (context) => {
   const slug = context.params?.slug;
-  const allNotes = await notesApi.getNotes();
+  const allNotes = await personalApi.getNotes();
   const note = allNotes.find((note) => note.slug === slug);
 
   if (!note) {
@@ -67,7 +67,7 @@ export const getStaticProps: GetStaticProps<Props, { slug: string }> = async (co
     };
   }
 
-  const noteContent = await notesApi.getNote(note.id);
+  const noteContent = await personalApi.getNote(note.id);
 
   return {
     props: {
@@ -79,7 +79,7 @@ export const getStaticProps: GetStaticProps<Props, { slug: string }> = async (co
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = await notesApi.getNotes();
+  const posts = await personalApi.getNotes();
 
   return {
     paths: posts.map((post) => ({ params: { slug: post.slug } })),

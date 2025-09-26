@@ -9,13 +9,13 @@ import { CloseIcon } from './icons/CloseIcon';
 
 export const NavigationItems = [
   {
-    name: 'Home',
+    name: 'Notes',
     href: '/',
     type: 'internal',
   },
   {
-    name: 'Notes',
-    href: '/notes',
+    name: 'Thoughts',
+    href: '/thoughts',
     type: 'internal',
   },
 ] as const;

@@ -5,23 +5,26 @@ import { PageLayout } from '../../components/PageLayout';
 import { NotePreview } from '../../components/notes/NotePreview';
 import { Note, personalApi } from '../../lib/notesApi';
 
-const seoTitle = 'Notes';
-const seoDescription =
-  'All of my thoughts on programming, building products, leadership, and more. Not structured.';
+const seoTitle = 'Thoughts';
+const seoDescription = 'Just human being.';
 
 interface Props {
   notes: Note[];
 }
 
-export default function Notes({ notes }: Props) {
+export default function Thoughts({ notes }: Props) {
   return (
     <>
       <NextSeo
         title={`${seoTitle} - Hibi`}
         description={seoDescription}
-        canonical={`${process.env.NEXT_PUBLIC_URL}/notes`}
+        canonical={`${process.env.NEXT_PUBLIC_URL}/thoughts`}
         openGraph={{
-          images: [{ url: `${process.env.NEXT_PUBLIC_URL}/api/og?title=${seoTitle}` }],
+          images: [
+            {
+              url: `${process.env.NEXT_PUBLIC_URL}/api/og?title=${seoTitle}&description=${seoDescription}`,
+            },
+          ],
         }}
       />
       <PageLayout title="" intro="Just human being and thoughts" className="mt-16 px-4">

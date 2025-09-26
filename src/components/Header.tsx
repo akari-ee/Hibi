@@ -120,10 +120,10 @@ export const Header = () => {
       >
         {isHomePage && (
           <>
-            <div
+            {/* <div
               ref={avatarRef}
               className="order-last mt-[calc(theme(spacing.16)-theme(spacing.3))]"
-            />
+            /> */}
             {/** <Container
               className="top-0 order-last -mb-3 pt-3"
               style={{ position: 'var(--header-position)' } as unknown as React.CSSProperties}

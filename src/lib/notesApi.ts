@@ -19,7 +19,6 @@ export type Note = {
   slug: string;
   isPublished: boolean;
   publishedAt: string;
-  inProgress: boolean;
 };
 
 const noop = async (block: BlockObjectResponse) => block;
@@ -163,8 +162,6 @@ class NotesApi {
             'checkbox' in page.properties.published ? page.properties.published.checkbox : false,
           publishedAt:
             'date' in page.properties.publishedAt ? page.properties.publishedAt.date!.start : '',
-          inProgress:
-            'checkbox' in page.properties.inProgress ? page.properties.inProgress.checkbox : false,
         };
       })
       .filter((post) => post.isPublished);
@@ -237,3 +234,4 @@ class NotesApi {
 }
 
 export const notesApi = new NotesApi(notion, process.env.NOTION_DATABASE_ID!);
+export const personalApi = new NotesApi(notion, process.env.NOTION_PERSONAL_DATABASE_ID!);

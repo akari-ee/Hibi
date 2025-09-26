@@ -22,9 +22,10 @@ interface Props {
   note: Note;
   dense?: boolean;
   noneDescription?: boolean;
+  isPersonal?: boolean;
 }
 
-export const NotePreview = ({ note, dense, noneDescription }: Props) => {
+export const NotePreview = ({ note, dense, noneDescription, isPersonal }: Props) => {
   return (
     <motion.div
       initial={ANIMATION_FROM_PROPS}
@@ -35,10 +36,11 @@ export const NotePreview = ({ note, dense, noneDescription }: Props) => {
         <Card className="">
           <div className="w-full">
             <div className="flex justify-between w-full">
-              <Card.Title href={`/notes/${note.slug}`}>{note.title}</Card.Title>
+              <Card.Title href={isPersonal ? `/thoughts/${note.slug}` : `/notes/${note.slug}`}>
+                {note.title}
+              </Card.Title>
               <Card.Eyebrow dateTime={note.publishedAt} className={clsx(!dense && 'md:hidden')}>
                 {formatDate(note.publishedAt)}
-                {note.inProgress && <StaticBadge className="ml-4">Work in progress</StaticBadge>}
               </Card.Eyebrow>
             </div>
             <div className="flex justify-between">
@@ -50,7 +52,6 @@ export const NotePreview = ({ note, dense, noneDescription }: Props) => {
         {!dense && (
           <Card.Eyebrow as="time" dateTime={note.publishedAt} className="mt-1 hidden md:block">
             {formatDate(note.publishedAt)}
-            {note.inProgress && <StaticBadge className="mt-2">Work in progress</StaticBadge>}
           </Card.Eyebrow>
         )}
       </article>

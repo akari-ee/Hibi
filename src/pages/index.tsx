@@ -10,9 +10,10 @@ import { SocialLink } from '../components/SocialLink';
 import { NotePreview } from '../components/notes/NotePreview';
 import { About, Name, SocialMedia } from '../data/lifeApi';
 import { Note, notesApi } from '../lib/notesApi';
+import { PageLayout } from 'src/components/PageLayout';
 
 const seoTitle = 'Hibi';
-const seoDescription = 'Just human being.';
+const seoDescription = 'Learning something.';
 
 type Props = {
   latestNotes: Note[];
@@ -51,19 +52,27 @@ export default function Home({ latestNotes }: Props) {
       </Container>
       <Photos />
       */}
-      <Container className="">
+      <PageLayout title="" intro="Just notes on learning" className="mt-16 px-4">
+        <div>
+          <div className="flex flex-col gap-8">
+            {latestNotes.map((blogPost) => (
+              <NotePreview key={blogPost.slug} note={blogPost} dense />
+            ))}
+          </div>
+        </div>
+      </PageLayout>
+      {/* <Container className="">
         <div className="mx-auto max-w-xl gap-y-20 lg:max-w-none">
           <div className="flex flex-col gap-8">
             {latestNotes.map((blogPost) => (
               <NotePreview key={blogPost.slug} note={blogPost} dense />
             ))}
           </div>
-          {/** <div className="lg:ml-auto space-y-10 lg:pl-16 xl:pl-24">
+          <div className="lg:ml-auto space-y-10 lg:pl-16 xl:pl-24">
             <Resume />
           </div>
-          */}
         </div>
-      </Container>
+      </Container> */}
     </>
   );
 }
