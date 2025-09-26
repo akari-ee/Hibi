@@ -28,7 +28,7 @@ export default function Note({
     <>
       <NextSeo
         title={`${title} - Hibi`}
-        description={description}
+        description={description!}
         canonical={url}
         openGraph={{
           images: [{ url: openGraphImageUrl }],
@@ -40,10 +40,10 @@ export default function Note({
         title={title}
         datePublished={createdAt}
         authorName="human being"
-        description={description}
+        description={description!}
       />
       <NoteLayout
-        meta={{ title, description, date: createdAt }}
+        meta={{ title, description: description!, date: createdAt }}
         previousPathname={previousPathname}
       >
         <div className="pb-32">

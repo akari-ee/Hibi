@@ -15,7 +15,7 @@ export type Note = {
   coverImage: string | null;
   tags: string[];
   title: string;
-  description: string;
+  description: string | null; // ✅ null 허용
   slug: string;
   isPublished: boolean;
   publishedAt: string;
@@ -96,8 +96,12 @@ class NotesApi {
     private readonly databaseId: string,
   ) {}
 
-  async getNotes(sortOrder: 'asc' | 'desc' = 'desc', limit?: number) {
-    const notes = await this.getDatabaseContent(this.databaseId);
+  async getNotes(
+    sortOrder: 'asc' | 'desc' = 'desc',
+    limit?: number,
+    includeDescription: boolean = true,
+  ) {
+    const notes = await this.getDatabaseContent(this.databaseId, includeDescription);
 
     return notes
       .sort((a, b) => {
@@ -127,7 +131,10 @@ class NotesApi {
     return Array.from(new Set(posts.map((note) => note.tags).flat()));
   }
 
-  private getDatabaseContent = async (databaseId: string): Promise<Note[]> => {
+  private getDatabaseContent = async (
+    databaseId: string,
+    includeDescription: boolean = true,
+  ): Promise<Note[]> => {
     const db = await this.notion.databases.query({ database_id: databaseId });
 
     while (db.has_more && db.next_cursor) {
@@ -155,17 +162,25 @@ class NotesApi {
             'multi_select' in page.properties.hashtags
               ? page.properties.hashtags.multi_select.map((tag) => tag.name)
               : [],
-          title: 'title' in page.properties.title ? page.properties.title.title[0].plain_text : '',
-          description:
-            'rich_text' in page.properties.description
-              ? page.properties.description.rich_text[0].plain_text
+          title:
+            'title' in page.properties.title
+              ? (page.properties.title.title?.[0]?.plain_text ?? '')
               : '',
+          description: includeDescription
+            ? 'rich_text' in page.properties.description
+              ? (page.properties.description.rich_text?.[0]?.plain_text ?? null)
+              : null
+            : null,
           slug:
-            'rich_text' in page.properties.slug ? page.properties.slug.rich_text[0].plain_text : '',
+            'rich_text' in page.properties.slug
+              ? (page.properties.slug.rich_text?.[0]?.plain_text ?? '')
+              : '',
           isPublished:
             'checkbox' in page.properties.published ? page.properties.published.checkbox : false,
           publishedAt:
-            'date' in page.properties.publishedAt ? page.properties.publishedAt.date!.start : '',
+            'date' in page.properties.publishedAt
+              ? (page.properties.publishedAt.date?.start ?? '')
+              : '',
         };
       })
       .filter((post) => post.isPublished);

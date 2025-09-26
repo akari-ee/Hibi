@@ -67,7 +67,7 @@ export default function Home({ notes, tags }: Props) {
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const notes = await notesApi.getNotes('desc');
+  const notes = await notesApi.getNotes('desc', undefined, false);
   const tags = Array.from(new Set(notes.map((post) => post.tags).flat()));
 
   return {

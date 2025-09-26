@@ -47,7 +47,7 @@ export const NoteLayout = ({ children, meta, previousPathname }: Props) => {
                 </time>
               )}
             </header>
-            <Prose className="mt-8">{children}</Prose>
+            <Prose className="mt-8 max-w-full">{children}</Prose>
           </article>
         </div>
       </div>
