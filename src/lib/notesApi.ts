@@ -106,8 +106,12 @@ class NotesApi {
       .slice(0, limit);
   }
 
-  async getNotesByTag(tag: string, sortOrder: 'asc' | 'desc' = 'desc', limit?: number) {
+  async getNotesByTag(tag: string = 'all', sortOrder: 'asc' | 'desc' = 'desc', limit?: number) {
     const notes = await notesApi.getNotes(sortOrder, limit);
+    if (tag === 'all') {
+      return notes;
+    }
+
     const relatedNotes = notes.filter((post) => post.tags.includes(tag));
 
     return relatedNotes;

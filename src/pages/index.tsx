@@ -1,14 +1,7 @@
-import { compareDesc } from 'date-fns';
 import { GetStaticProps } from 'next';
 import { NextSeo } from 'next-seo';
 
-import { Container } from '../components/Container';
-import { PageTitle } from '../components/PageTitle';
-import { Photos } from '../components/Photos';
-import { Resume } from '../components/Resume';
-import { SocialLink } from '../components/SocialLink';
 import { NotePreview } from '../components/notes/NotePreview';
-import { About, Name, SocialMedia } from '../data/lifeApi';
 import { Note, notesApi } from '../lib/notesApi';
 import { PageLayout } from 'src/components/PageLayout';
 
@@ -16,10 +9,10 @@ const seoTitle = 'Hibi';
 const seoDescription = 'Learning something.';
 
 type Props = {
-  latestNotes: Note[];
+  notes: Note[];
 };
 
-export default function Home({ latestNotes }: Props) {
+export default function Home({ notes }: Props) {
   return (
     <>
       <NextSeo
@@ -55,7 +48,7 @@ export default function Home({ latestNotes }: Props) {
       <PageLayout title="" intro="Just notes on learning" className="mt-16 px-4">
         <div>
           <div className="flex flex-col gap-8">
-            {latestNotes.map((blogPost) => (
+            {notes.map((blogPost) => (
               <NotePreview key={blogPost.slug} note={blogPost} dense />
             ))}
           </div>
@@ -77,13 +70,11 @@ export default function Home({ latestNotes }: Props) {
   );
 }
 
-const NEWEST_POSTS_TO_DISPLAY = 5;
-
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const latestNotes = await notesApi.getNotes('desc');
+  const notes = await notesApi.getNotes('desc');
 
   return {
-    props: { latestNotes },
+    props: { notes, tags: Array.from(new Set(notes.map((post) => post.tags).flat())) },
     revalidate: 10,
   };
 };
