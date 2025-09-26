@@ -16,7 +16,7 @@ const rss: NextApiHandler = async (req, res) => {
       title: post.title,
       url: `https://jarocki.me/notes/${post.slug}`,
       date: post.publishedAt,
-      description: post.description,
+      description: post.description!,
     });
   });
 
